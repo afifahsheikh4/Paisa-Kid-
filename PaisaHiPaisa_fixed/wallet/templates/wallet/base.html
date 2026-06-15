@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}PaisaHiPaisa{% endblock %}</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; background: #f4f7fb; color: #111; }
+      .page { max-width: 920px; margin: 0 auto; padding: 32px 24px; }
+      .card { background: white; border-radius: 14px; padding: 28px; box-shadow: 0 14px 40px rgba(15, 23, 42, 0.08); }
+      .button { display: inline-flex; gap: 0.5rem; align-items: center; justify-content: center; padding: 12px 18px; border: none; border-radius: 10px; background: #2563eb; color: white; text-decoration: none; font-weight: 600; }
+      .button.secondary { background: #e2e8f0; color: #111827; }
+      .form-row { margin-bottom: 18px; }
+      label { display: block; font-weight: 600; margin-bottom: 8px; }
+      input[type="text"], input[type="password"], select { width: 100%; padding: 12px 14px; border: 1px solid #d1d5db; border-radius: 10px; }
+      .errors { background: #fee2e2; color: #991b1b; border-radius: 10px; padding: 12px 14px; margin-bottom: 18px; }
+      .nav { display: flex; flex-wrap: wrap; justify-content: space-between; margin-bottom: 24px; align-items: center; gap: 12px; }
+      .nav a { color: #2563eb; text-decoration: none; font-weight: 600; }
+      .hero h1 { margin-top:0; }
+      .summary { display: grid; gap: 16px; margin-top: 24px; }
+      .summary-card { background: #f8fafc; padding: 18px; border-radius: 14px; }
+      .footer { margin-top: 32px; color: #475569; font-size: 0.95rem; }
+      .radio-list { display: flex; flex-wrap: wrap; gap: 12px; }
+      .radio-list label { margin-bottom: 0; font-weight: 500; }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="nav">
+        <div><a href="{% url 'wallet:home' %}">Home</a></div>
+        <div>
+          {% if request.user.is_authenticated %}
+          <a href="{% url 'wallet:logout' %}">Logout</a>
+          {% else %}
+          <a href="{% url 'wallet:login' %}">Login</a>
+          <a href="{% url 'wallet:signup' %}">Sign up</a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="card">
+        {% block content %}{% endblock %}
+      </div>
+      <div class="footer">
+        <p>PaisaHiPaisa routes are fixed so root URL goes to login and each authenticated user lands on their own dashboard.</p>
+      </div>
+    </div>
+  </body>
+</html>
